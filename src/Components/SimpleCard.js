@@ -10,25 +10,25 @@ import Typography from "@material-ui/core/Typography";
 const styles = {
   card: {
     width: 300,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
+    height: 240
   },
   title: {
-    fontSize: 14,
-    marginRight: "auto"
+    fontSize: 14
+  },
+  name: {
+    marginTop: 15
   },
   pos: {
-    marginBottom: 12
+    marginBottom: 15
+  },
+  des: {
+    height: 40
   }
 };
 
 class SimpleCard extends Component {
   render() {
-    const { classes } = this.props;
-
+    const { classes, card } = this.props;
     return (
       <Card className={classes.card}>
         <CardContent>
@@ -38,27 +38,38 @@ class SimpleCard extends Component {
             gutterBottom
             align="left"
           >
-            New
+            {card.coreData.state}
           </Typography>
-          <Typography variant="h5" component="h2" align="left">
-            INCXXXXXX
+          <Typography
+            className={classes.name}
+            variant="h5"
+            component="h2"
+            align="left"
+          >
+            {card.coreData.number}
           </Typography>
           <Typography
             className={classes.pos}
             align="left"
             color="textSecondary"
           >
-            Application:System
+            Application: {card.coreData.application}
             <br />
-            Assignee:sing.le
+            Assignee:{card.coreData.assignee}
           </Typography>
-          <Typography component="p" align="left">
-            This is an example of a long short description field that is
-            truncat......
+          <Typography component="p" align="left" className={classes.des}>
+            {card.coreData.shortDescription.length > 66
+              ? card.coreData.shortDescription.slice(0, 66).concat("......")
+              : card.coreData.shortDescription}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button
+            size="small"
+            onClick={()=>this.props.handleOpenDrawer(card)}
+          >
+            Learn More
+          </Button>
         </CardActions>
       </Card>
     );

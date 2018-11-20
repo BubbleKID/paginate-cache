@@ -52,45 +52,41 @@ const styles = {
 };
 
 class TemporaryDrawer extends React.Component {
-  state = {
-    right: false
-  };
-
-  toggleDrawer = (side, open) => () => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: true//if false needs to click twice
+    };
+  }
+  toggleDrawer = () => {
     this.setState({
-      [side]: open
+      open: false
     });
   };
 
+  componentWillReceiveProps(drawerOpen) {
+    this.setState({
+      open: drawerOpen
+    });
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, coreData, serviceData } = this.props;
     return (
       <div>
-        {/* <Button onClick={this.toggleDrawer("right", true)}>Open Right</Button> */}
-        <Drawer
-          anchor="right"
-          open={this.state.right}
-          //onClose={this.toggleDrawer("right", false)}
-        >
-          <div
-            tabIndex={0}
-            role="button"
-            //onClick={this.toggleDrawer("right", false)}
-            //onKeyDown={this.toggleDrawer("right", false)}
-          >
+        <Drawer anchor="right" open={this.state.open}>
+          <div tabIndex={0} role="button">
             <Button
-              
               mini
-              
               className={classes.closeBtn}
-              onClick={this.toggleDrawer("right", false)}
+              onClick={this.toggleDrawer}
             >
               x
             </Button>
             <form className={classes.form}>
               <Grid container direction="column">
                 <Typography variant="display1" className={classes.formTitle}>
-                  INCXXXXXXXX
+                  {coreData.number}
                 </Typography>
                 <div className={classes.inputContainer}>
                   <InputLabel className={classes.formLabel}>
@@ -99,7 +95,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={"sing.le"}
+                    value={coreData.assignee}
                     margin="none"
                   />
                   <br />
@@ -111,9 +107,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={
-                      "Cron Task: create ticket (time: Mon Apr 9 06:52:16 2018)"
-                    }
+                    value={coreData.shortDescription}
                     margin="none"
                   />
                 </div>
@@ -124,7 +118,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={"System"}
+                    value={coreData.appication}
                     margin="none"
                   />
                 </div>
@@ -135,7 +129,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={"true"}
+                    value={serviceData.made_sla}
                     margin="none"
                   />
                 </div>
@@ -146,7 +140,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={"System"}
+                    value={serviceData.upon_reject}
                     margin="none"
                   />
                 </div>
@@ -157,7 +151,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={"Cancel all futrue Tasks"}
+                    value={serviceData.opened_by}
                     margin="none"
                   />
                 </div>
@@ -168,7 +162,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={"5 - Not Urgent"}
+                    value={serviceData.priority}
                     margin="none"
                   />
                 </div>
@@ -179,7 +173,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={"In 1 Day"}
+                    value={serviceData.activity_due}
                     margin="none"
                   />
                 </div>
@@ -190,7 +184,7 @@ class TemporaryDrawer extends React.Component {
                   <TextField
                     id="standard-name"
                     className={classes.textField}
-                    value={"Not Yet Requested"}
+                    value={serviceData.approval}
                     margin="none"
                   />
                 </div>
