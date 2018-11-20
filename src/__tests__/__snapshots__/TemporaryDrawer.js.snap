@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TemporaryDrawer should render correctly 1`] = `
+<TemporaryDrawer
+  classes={
+    Object {
+      "closeBtn": "TemporaryDrawer-closeBtn-8",
+      "form": "TemporaryDrawer-form-1",
+      "formLabel": "TemporaryDrawer-formLabel-5",
+      "formTitle": "TemporaryDrawer-formTitle-3",
+      "fullList": "TemporaryDrawer-fullList-2",
+      "inputContainer": "TemporaryDrawer-inputContainer-4",
+      "labelContainer": "TemporaryDrawer-labelContainer-6",
+      "textField": "TemporaryDrawer-textField-7",
+    }
+  }
+/>
+`;

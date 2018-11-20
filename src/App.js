@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import CardsView from "./Components/CardsView";
 import "normalize.css";
+import CardsView from "./Components/CardsView";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <CardsView />
+        <BrowserRouter>
+          <Route path="/"component={CardsView} />
+        </BrowserRouter>
       </div>
     );
   }

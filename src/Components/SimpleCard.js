@@ -9,20 +9,20 @@ import Typography from "@material-ui/core/Typography";
 
 const styles = {
   card: {
-    width: 300,
-    height: 240
+    width: "300px",
+    height: "240px"
   },
   title: {
-    fontSize: 14
+    fontSize: "14px"
   },
   name: {
-    marginTop: 15
+    marginTop: "15px"
   },
   pos: {
-    marginBottom: 15
+    marginBottom: "15px"
   },
   des: {
-    height: 40
+    height: "40px"
   }
 };
 
@@ -66,7 +66,7 @@ class SimpleCard extends Component {
         <CardActions>
           <Button
             size="small"
-            onClick={()=>this.props.handleOpenDrawer(card)}
+            onClick={() => this.props.handleOpenDrawer(card)}
           >
             Learn More
           </Button>
