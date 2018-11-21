@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import SimpleCard from "./SimpleCard";
 import Pagination from "./Pagination";
 import TemporaryDrawer from "./TemporaryDrawer";
+
 import axios from "axios";
 const styles = theme => ({
   root: {
@@ -19,17 +21,13 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3
   }
 });
-
 class CardsView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: "",
-      cards: [],
-      total: 0,
+      //token: "",
       cardsPerPage: 12,
       currPage: 1,
-      totalPage: 0,
       currCardData: "",
       drawerOpen: false
     };
@@ -53,16 +51,17 @@ class CardsView extends Component {
         }
       )
       .then(function(response) {
-        console.log(response.data.token);
-        self.setState({
-          token: response.data.token
-        });
+        //console.log(response.data.token);
+        // self.setState({
+        //   token: response.data.token
+        // });
+        self.props.dispatch({ type: "SET_TOKEN", token: response.data.token });
         axios
           .get(
             "https://atr-test-dh1.aiam-dh.com/atr-gateway/ticket-management/api/v1/tickets?ticketType=incident&sortDirection=DESC&page=0&perPage=12",
             {
               headers: {
-                apiToken: self.state.token,
+                apiToken: self.props.token,
                 "Content-Type": "application/json",
                 Accept: "application/json"
               }
@@ -74,9 +73,9 @@ class CardsView extends Component {
                 parseInt(response.headers["x-total-count"]) /
                   self.state.cardsPerPage
               ) - 1;
-            self.setState({
+            self.props.dispatch({
+              type: "SET_CARDS",
               cards: response.data,
-              total: parseInt(response.headers["x-total-count"]),
               totalPage: totalPage
             });
           })
@@ -88,16 +87,18 @@ class CardsView extends Component {
         console.log(error);
       });
   }
+
   render() {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        {this.state.currCardData.coreData && <TemporaryDrawer
-          coreData={this.state.currCardData.coreData}
-          serviceData={this.state.currCardData.serviceData}
-          drawerOpen={this.state.drawerOpen}
-        />}
-       
+        {this.state.currCardData.coreData && (
+          <TemporaryDrawer
+            coreData={this.state.currCardData.coreData}
+            serviceData={this.state.currCardData.serviceData}
+            drawerOpen={this.state.drawerOpen}
+          />
+        )}
         <Grid container className={classes.root} justify="center">
           <Grid item>
             <Grid
@@ -106,7 +107,7 @@ class CardsView extends Component {
               justify="center"
               spacing={16}
             >
-              {this.state.cards.map(card => (
+              {this.props.cards.map(card => (
                 <Grid key={card.coreData.id} item>
                   <SimpleCard
                     card={card}
@@ -117,7 +118,7 @@ class CardsView extends Component {
             </Grid>
           </Grid>
           <Pagination
-            totalPage={this.state.totalPage}
+            totalPage={this.props.totalPage}
             currPage={this.state.currPage}
           />
         </Grid>
@@ -126,8 +127,14 @@ class CardsView extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  cards: state.cards,
+  totalPage: state.totalPage,
+  token: state.token
+});
+
 CardsView.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(CardsView);
+export default connect(mapStateToProps)(withStyles(styles)(CardsView));

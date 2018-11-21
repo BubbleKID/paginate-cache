@@ -15,14 +15,15 @@ const styles = theme => ({
   }
 });
 
-
 class Pagination extends Component {
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
         <Button className={classes.button}>Back</Button>
-        <Typography>Page {this.props.currPage} of {this.props.totalPage}</Typography>
+        <Typography>
+          Page {this.props.currPage} of {this.props.totalPage}
+        </Typography>
         <Button className={classes.button}>Next</Button>
       </div>
     );
