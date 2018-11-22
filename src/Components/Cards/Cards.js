@@ -74,11 +74,15 @@ class Cards extends Component {
                   justify="center"
                   spacing={16}
                 >
-                  {pages[currPage-1].data.map(page => (
+                {
+                  pages?
+                    pages[currPage-1].data.map(page => (
                     <Grid key={page.coreData.id} item xs={3}>
                       <Card cardData={page} />
                     </Grid>
-                  ))}
+                  )) :
+                  <span>Page is undefined</span>
+                }
                 </Grid>
               </Grid>
               <Pagination totalPage={totalPage} currPage={currPage} />

@@ -27,9 +27,6 @@ npm run test
 ![Alt text](Screenshot1.jpg "Screenshot1")
 ![Alt text](Screenshot2.jpg "Screenshot2")
 
-## Deployment
-Project is hosting via Heroku:
-[Live Demo](https://paginate-cache.herokuapp.com/)
 
 ## Caching and fetching	algorithm
 ![Alt text](Diagram.jpeg "Diagram")
