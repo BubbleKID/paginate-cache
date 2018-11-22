@@ -6,6 +6,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { withRouter } from "react-router-dom";
+import * as actions from "../SimpleCard/SimpleCardActions";
+import { connect } from "react-redux";
 
 const styles = {
   card: {
@@ -66,7 +69,10 @@ class SimpleCard extends Component {
         <CardActions>
           <Button
             size="small"
-            onClick={() => this.props.handleOpenDrawer(card)}
+            onClick={() => {
+              this.props.dispatch(actions.setCurrentCard(card));
+              this.props.history.push("/card/" + card.coreData.number);
+            }}
           >
             Learn More
           </Button>
@@ -80,4 +86,10 @@ SimpleCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleCard);
+const mapStateToProps = state => ({
+  currCard: state.currCard
+});
+
+export default connect(mapStateToProps)(
+  withRouter(withStyles(styles)(SimpleCard))
+);
