@@ -22,11 +22,12 @@ export function fetchCards() {
           })
           .then(response => {
             const totalPage =
-              Math.ceil(parseInt(response.headers["x-total-count"]) / 12) - 1;
+              Math.ceil((response.headers["x-total-count"]) / 12);
             dispatch({
               type: "SET_CARDS",
               cards: response.data,
-              totalPage: totalPage
+              totalPage: totalPage,
+              isLoading: false
             });
           })
           .catch(function(error) {

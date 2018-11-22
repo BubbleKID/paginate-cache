@@ -1,9 +1,5 @@
-const innitialState = {
-  currPage: 1,
-  cards: [],
-  totalPage: 0,
-  currCardData: {}
-};
+
+import innitialState from "../State/innitialState";
 
 function CardsViewReducer(state = innitialState, action) {
   switch (action.type) {
@@ -11,7 +7,8 @@ function CardsViewReducer(state = innitialState, action) {
       return {
         ...state,
         cards: action.cards,
-        totalPage: action.totalPage
+        totalPage: action.totalPage,
+        isLoading: action.isLoading
       };
     case "SET_CURRENTCARDS":
       return {

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
+import { Card as MUICard} from "@material-ui/core/";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { withRouter } from "react-router-dom";
-import * as actions from "../SimpleCard/SimpleCardActions";
+import * as actions from "../../Reducers/CardActions";
 import { connect } from "react-redux";
 
 const styles = {
@@ -29,11 +29,11 @@ const styles = {
   }
 };
 
-class SimpleCard extends Component {
+class Card extends Component {
   render() {
-    const { classes, card } = this.props;
+    const { classes, cardData, dispatch, history } = this.props;
     return (
-      <Card className={classes.card}>
+      <MUICard className={classes.card}>
         <CardContent>
           <Typography
             className={classes.title}
@@ -41,7 +41,7 @@ class SimpleCard extends Component {
             gutterBottom
             align="left"
           >
-            {card.coreData.state}
+            {cardData.coreData.state}
           </Typography>
           <Typography
             className={classes.name}
@@ -49,40 +49,40 @@ class SimpleCard extends Component {
             component="h2"
             align="left"
           >
-            {card.coreData.number}
+            {cardData.coreData.number}
           </Typography>
           <Typography
             className={classes.pos}
             align="left"
             color="textSecondary"
           >
-            Application: {card.coreData.application}
+            Application: {cardData.coreData.application}
             <br />
-            Assignee:{card.coreData.assignee}
+            Assignee:{cardData.coreData.assignee}
           </Typography>
           <Typography component="p" align="left" className={classes.des}>
-            {card.coreData.shortDescription.length > 66
-              ? card.coreData.shortDescription.slice(0, 66).concat("......")
-              : card.coreData.shortDescription}
+            {cardData.coreData.shortDescription.length > 66
+              ? cardData.coreData.shortDescription.slice(0, 66).concat("......")
+              : cardData.coreData.shortDescription}
           </Typography>
         </CardContent>
         <CardActions>
           <Button
             size="small"
             onClick={() => {
-              this.props.dispatch(actions.setCurrentCard(card));
-              this.props.history.push("/card/" + card.coreData.number);
+              dispatch(actions.setCurrentCard(cardData));
+              history.push("/card/" + cardData.coreData.number);
             }}
           >
             Learn More
           </Button>
         </CardActions>
-      </Card>
+      </MUICard>
     );
   }
 }
 
-SimpleCard.propTypes = {
+Card.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
@@ -90,6 +90,4 @@ const mapStateToProps = state => ({
   currCard: state.currCard
 });
 
-export default connect(mapStateToProps)(
-  withRouter(withStyles(styles)(SimpleCard))
-);
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(Card)));

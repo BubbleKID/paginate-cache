@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 import "normalize.css";
-import CardsView from "../CardsView/CardsView";
+import Cards from "../Cards/Cards";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import CardsViewReducer from "../../Reducers/CardsView";
-import TemporaryDrawer from "../TemporaryDrawer/TemporaryDrawer";
+import CardsReducer from "../../Reducers/CardsReducer";
+import CardDrawer from "../CardDrawer/CardDrawer";
 
 const store = createStore(
-  CardsViewReducer,
+  CardsReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
-
-console.log(store.getState());
 
 class App extends Component {
   render() {
@@ -22,11 +20,8 @@ class App extends Component {
       <Provider store={store} className="App">
         <BrowserRouter>
           <div>
-            <Route path="/" component={CardsView} />
-            <Route
-              path="/card/:number"         
-              component={TemporaryDrawer}
-            />
+            <Route path="/" component={Cards} />
+            <Route path="/card/:number" component={CardDrawer} />
           </div>
         </BrowserRouter>
       </Provider>

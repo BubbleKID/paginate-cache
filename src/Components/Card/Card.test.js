@@ -1,9 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import SimpleCard from "../Components/SimpleCard";
-describe("SimpleCard", () => {
+import Card from "../Components/Card";
+describe("Card", () => {
   it("should render correctly", () => {
-    const component = shallow(<SimpleCard />);
+    const component = shallow(<Card />);
     expect(component).toMatchSnapshot();
   });
 });

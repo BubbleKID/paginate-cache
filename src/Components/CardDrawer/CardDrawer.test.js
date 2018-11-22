@@ -1,9 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import TemporaryDrawer from "../Components/TemporaryDrawer";
+import CardDrawer from "../Components/CardDrawer";
 describe("TemporaryDrawer", () => {
   it("should render correctly", () => {
-    const component = shallow(<TemporaryDrawer />);
+    const component = shallow(<CardDrawer />);
     expect(component).toMatchSnapshot();
   });
 });
