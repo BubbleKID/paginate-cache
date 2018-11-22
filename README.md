@@ -31,6 +31,10 @@ npm run test
 Project is hosting via Heroku:
 [Live Demo](https://paginate-cache.herokuapp.com/)
 
+## Caching and fetching	algorithm
+![Alt text](Diagram.jpeg "Diagram")
+
+
 ## Built With
 
 * [Creat React App](https://facebook.github.io/create-react-app/) - To scaffold the project.

@@ -1,9 +1,11 @@
 const innitialState = {
   isLoading: true,
   currPage: 1,
-  cards: [],
+  pages: [],
   totalPage: 0,
-  currCardData: {}
+  currCardData: {},
+  cachedPage: 1,
+  needToFetch: true
 };
 
 export default innitialState;

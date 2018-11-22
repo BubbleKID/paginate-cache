@@ -1,9 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import CardsView from "../Components/CardsView";
+import Cards from "../Components/Cards";
 describe("CardsView", () => {
   it('should render correctly', () => {
-    const component = shallow(<CardsView />);
+    const component = shallow(<Cards />);
     expect(component).toMatchSnapshot();
   });
 });

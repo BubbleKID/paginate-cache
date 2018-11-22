@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import CardsReducer from "../../Reducers/CardsReducer";
+import CardsReducer from "../../State/Cards/CardsReducer";
 import CardDrawer from "../CardDrawer/CardDrawer";
 
 const store = createStore(

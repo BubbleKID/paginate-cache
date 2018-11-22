@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "../Card/Card";
 import Pagination from "../Pagination/Pagination";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import * as actions from "../../Reducers/CardsActions";
+import * as actions from "../../State/Cards/CardsActions";
 
 const styles = theme => ({
   root: {
@@ -27,19 +27,34 @@ const styles = theme => ({
   },
   fechingText: {
     marginBottom: theme.spacing.unit * 2
-  },
-  body: {
-    backgroundColor: "#eeeeee"
   }
 });
 
 class Cards extends Component {
   componentDidMount() {
-    this.props.dispatch(actions.fetchCards());
+    if (this.props.needToFetch === true) {
+      this.props.dispatch(
+        actions.fetchCardsToPage(this.props.cachedPage, this.props.pages)
+      );
+    }
+  }
+  componentDidUpdate() {
+    if (this.props.needToFetch === true) {
+      this.props.dispatch(
+        actions.fetchCardsToPage(this.props.cachedPage, this.props.pages)
+      );
+    }
   }
 
   render() {
-    const { classes, totalPage, currPage, cards, isLoading } = this.props;
+    const {
+      classes,
+      totalPage,
+      currPage,
+      pages,
+      isLoading
+    } = this.props;
+    
     return (
       <React.Fragment>
         <Grid container className={classes.root} justify="center">
@@ -59,9 +74,9 @@ class Cards extends Component {
                   justify="center"
                   spacing={16}
                 >
-                  {cards.map(card => (
-                    <Grid key={card.coreData.id} item xs={3}>
-                      <Card cardData={card} />
+                  {pages[currPage-1].data.map(page => (
+                    <Grid key={page.coreData.id} item xs={3}>
+                      <Card cardData={page} />
                     </Grid>
                   ))}
                 </Grid>
@@ -77,13 +92,20 @@ class Cards extends Component {
 
 const mapStateToProps = state => ({
   isLoading: state.isLoading,
-  cards: state.cards,
+  pages: state.pages,
   totalPage: state.totalPage,
-  currPage: state.currPage
+  currPage: state.currPage,
+  cachedPage: state.cachedPage,
+  needToFetch: state.needToFetch
 });
 
 Cards.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  totalPage: PropTypes.number.isRequired,
+  currPage: PropTypes.number.isRequired,
+  cachedPage: PropTypes.number.isRequired,
+  pages: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps)(withStyles(styles)(Cards));

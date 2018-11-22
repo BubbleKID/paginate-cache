@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Card as MUICard} from "@material-ui/core/";
+import { Card as MUICard } from "@material-ui/core/";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { withRouter } from "react-router-dom";
-import * as actions from "../../Reducers/CardActions";
+import * as actions from "../../State/Card/CardActions";
 import { connect } from "react-redux";
 
 const styles = {
@@ -19,9 +19,9 @@ const styles = {
     fontSize: "14px"
   },
   name: {
-    marginTop: "15px"
+    marginTop: "15px"  
   },
-  pos: {
+  app: {
     marginBottom: "15px"
   },
   des: {
@@ -52,7 +52,7 @@ class Card extends Component {
             {cardData.coreData.number}
           </Typography>
           <Typography
-            className={classes.pos}
+            className={classes.app}
             align="left"
             color="textSecondary"
           >
@@ -83,7 +83,10 @@ class Card extends Component {
 }
 
 Card.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  cardData: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

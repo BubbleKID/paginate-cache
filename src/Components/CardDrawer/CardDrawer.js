@@ -21,7 +21,8 @@ const styles = {
     marginLeft: "10px",
     marginBottom: "30px",
     marginTop: "30px",
-    color: "#000000"
+    color: "#000000",
+    useNextVariants: true
   },
   inputContainer: {
     display: "flex",
@@ -56,8 +57,8 @@ const styles = {
 class TemporaryDrawer extends React.Component {
   render() {
     const { classes, currCardData } = this.props;
-    if (currCardData.coreData === undefined){
-      return <Redirect to="/" />
+    if (currCardData.coreData === undefined) {
+      return <Redirect to="/" />;
     }
     return (
       <Drawer anchor="right" open={true}>
@@ -71,7 +72,7 @@ class TemporaryDrawer extends React.Component {
           </Button>
           <form className={classes.form}>
             <Grid container direction="column">
-              <Typography variant="display1" className={classes.formTitle}>
+              <Typography variant="h4" className={classes.formTitle}>
                 {currCardData.coreData.number}
               </Typography>
               <div className={classes.inputContainer}>
