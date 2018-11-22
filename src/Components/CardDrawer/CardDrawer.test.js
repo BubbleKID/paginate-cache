@@ -1,9 +1,20 @@
 import React from "react";
 import { shallow } from "enzyme";
-import CardDrawer from "../Components/CardDrawer";
-describe("TemporaryDrawer", () => {
+import { Provider } from "react-redux";
+import CardDrawer from "./CardDrawer.js";
+import configureMockStore from "redux-mock-store";
+
+const mockStore = configureMockStore();
+const store = mockStore({});
+
+describe("CardDrawer", () => {
   it("should render correctly", () => {
-    const component = shallow(<CardDrawer />);
-    expect(component).toMatchSnapshot();
+    expect(
+      shallow(
+        <Provider store={store}>
+          <CardDrawer />
+        </Provider>
+      )
+    ).toBeTruthy;
   });
 });

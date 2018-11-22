@@ -24,7 +24,7 @@ export const goNext = (currPage, cachedPage, pages) => {
   };
 };
 
-export const goBack = (currPage, cachedPage) => {
+export const goBack = (currPage) => {
   return dispatch => {
     if (currPage > 1) {
       dispatch({

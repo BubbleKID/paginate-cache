@@ -25,7 +25,7 @@ class Pagination extends Component {
         <Button
           className={classes.button}
           onClick={() => {
-            dispatch(actions.goBack(currPage, cachedPage));
+            dispatch(actions.goBack(currPage));
           }}
         >
           Back
